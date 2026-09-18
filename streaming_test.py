@@ -11,9 +11,10 @@ if not api_key:
 
 client = genai.Client(api_key=api_key)
 
-response = client.models.generate_content(
+stream = client.models.generate_content_stream(
     model="gemini-3.6-flash",
-    contents= "Explain what machine learning is in 3 simple bullet points."
+    contents= "Explain what machine learning for beginner."
 )
 
-print(response.text)
+for chunk in stream: 
+    print(chunk.text, end = "", flush = True)
